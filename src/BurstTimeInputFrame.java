@@ -2,6 +2,8 @@
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -9,15 +11,22 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class BurstTimeInputFrame extends JFrame {
+public final class BurstTimeInputFrame extends JFrame implements ActionListener {
     JLabel processLabel, btLabel;
     JLabel p1, p2, p3, p4, p5;
     JTextField bt1, bt2, bt3, bt4;
     JButton sjfButton, fcfsButton;
     
+    public static void main(String[] args)  {
+        BurstTimeInputFrame burstTimeInputFrame = new BurstTimeInputFrame();
+        burstTimeInputFrame.setVisible(true);
+    }
+    
     public BurstTimeInputFrame() {
-        super("Scheduling Algorithm Simulator");
-        
+        initComponents();
+    }
+    
+    public void initComponents() {
         JPanel pane = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(5,5,5,5);
@@ -143,15 +152,27 @@ public class BurstTimeInputFrame extends JFrame {
         c.gridy = 5;
         pane.add(fcfsButton, c);
         
-        add(pane);
-        pack();
+        sjfButton.addActionListener(this);
+        fcfsButton.addActionListener(this);
+        
+        getContentPane().add(pane);
+        setTitle("Scheduling Algorithm Simulator");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
         setLocationRelativeTo(null);
-        setVisible(true);
+        pack();
     }
-    
-    public static void main(String[] args)  {
-        new BurstTimeInputFrame();
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        switch(ae.getActionCommand()) {
+            case "SJF":
+                setVisible(false);
+                SJF sjf = new SJF();
+                break;
+            case "FCFS":
+                setVisible(false);
+                FCFS fcfs = new FCFS();
+                break;
+        }
     }
 }
