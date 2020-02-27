@@ -13,7 +13,7 @@ import javax.swing.SwingConstants;
 
 public final class BurstTimeInputFrame extends JFrame implements ActionListener {
     JLabel processLabel, btLabel;
-    JLabel p1, p2, p3, p4, p5;
+    JLabel p1, p2, p3, p4;
     JTextField bt1, bt2, bt3, bt4;
     JButton sjfButton, fcfsButton;
     
