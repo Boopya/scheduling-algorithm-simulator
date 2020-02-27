@@ -164,14 +164,34 @@ public final class BurstTimeInputFrame extends JFrame implements ActionListener 
 
     @Override
     public void actionPerformed(ActionEvent ae) {
+        String bt1, bt2, bt3, bt4;
+        bt1 = bt2 = bt3 = bt4 = "";
+        
         switch(ae.getActionCommand()) {
             case "SJF":
+                try {
+                    bt1 = this.bt1.getText();
+                    bt2 = this.bt2.getText();
+                    bt3 = this.bt3.getText();
+                    bt4 = this.bt4.getText();
+                } catch (NullPointerException e) { 
+                    System.out.println(e.getMessage());
+                }
                 setVisible(false);
-                SJF sjf = new SJF();
+                SJF sjf = new SJF(bt1, bt2, bt3, bt4);
                 break;
+                
             case "FCFS":
+                try {
+                    bt1 = this.bt1.getText();
+                    bt2 = this.bt2.getText();
+                    bt3 = this.bt3.getText();
+                    bt4 = this.bt4.getText();
+                } catch (NullPointerException e) { 
+                    System.out.println(e.getMessage());
+                }
                 setVisible(false);
-                FCFS fcfs = new FCFS();
+                FCFS fcfs = new FCFS(bt1, bt2, bt3, bt4);
                 break;
         }
     }
