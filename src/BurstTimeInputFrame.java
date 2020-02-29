@@ -29,11 +29,11 @@ public final class BurstTimeInputFrame implements ActionListener {
     }
     
     public void initComponents() {
-	frame = new JFrame();
+		frame = new JFrame();
         pane = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(5,5,5,5);
-	c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.HORIZONTAL;
         c.ipadx = 100;
         c.ipady = 20;
         c.weightx = 0.5;
@@ -69,7 +69,7 @@ public final class BurstTimeInputFrame implements ActionListener {
         c.gridy = 4;
         pane.add(p4, c);
        
-	c.fill = GridBagConstraints.NONE;
+		c.fill = GridBagConstraints.NONE;
 	
         bt1 = new JTextField();
         c.gridx = 1;
@@ -106,7 +106,7 @@ public final class BurstTimeInputFrame implements ActionListener {
         
         frame.getContentPane().add(pane);
         frame.setTitle("Scheduling Algorithm Simulator");
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.pack();
     }
@@ -140,7 +140,7 @@ public final class BurstTimeInputFrame implements ActionListener {
                     System.out.println(e.getMessage());
                 }
                 frame.setVisible(false);
-                FCFS fcfs = new FCFS(bt1, bt2, bt3, bt4);
+                //FCFS fcfs = new FCFS(bt1, bt2, bt3, bt4);
                 break;
         }
     }
