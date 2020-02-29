@@ -11,7 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public final class BurstTimeInputFrame extends JFrame implements ActionListener {
+public final class BurstTimeInputFrame implements ActionListener {
+    JFrame frame;
+    JPanel pane;
     JLabel processLabel, btLabel;
     JLabel p1, p2, p3, p4;
     JTextField bt1, bt2, bt3, bt4;
@@ -19,7 +21,7 @@ public final class BurstTimeInputFrame extends JFrame implements ActionListener 
     
     public static void main(String[] args)  {
         BurstTimeInputFrame burstTimeInputFrame = new BurstTimeInputFrame();
-        burstTimeInputFrame.setVisible(true);
+        burstTimeInputFrame.frame.setVisible(true);
     }
     
     public BurstTimeInputFrame() {
@@ -27,127 +29,74 @@ public final class BurstTimeInputFrame extends JFrame implements ActionListener 
     }
     
     public void initComponents() {
-        JPanel pane = new JPanel(new GridBagLayout());
+	frame = new JFrame();
+        pane = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(5,5,5,5);
-        
-        processLabel = new JLabel("Process", SwingConstants.CENTER);
-        c.fill = GridBagConstraints.HORIZONTAL;
+	c.fill = GridBagConstraints.HORIZONTAL;
         c.ipadx = 100;
         c.ipady = 20;
         c.weightx = 0.5;
         c.weighty = 0.5;
+        
+        processLabel = new JLabel("Process", SwingConstants.CENTER);
         c.gridx = 0;
         c.gridy = 0;
         pane.add(processLabel, c);
         
         btLabel = new JLabel("Burst Time", SwingConstants.CENTER);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipadx = 100;
-        c.ipady = 20;
-        c.weightx = 0.5;
-        c.weighty = 0.5;
         c.gridx = 1;
         c.gridy = 0;
         pane.add(btLabel, c);
         
         p1 = new JLabel("P1", SwingConstants.CENTER);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipadx = 100;
-        c.ipady = 20;
-        c.weightx = 0.5;
-        c.weighty = 0.5;
         c.gridx = 0;
         c.gridy = 1;
         pane.add(p1, c);
         
         p2 = new JLabel("P2", SwingConstants.CENTER);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipadx = 100;
-        c.ipady = 20;
-        c.weightx = 0.5;
-        c.weighty = 0.5;
         c.gridx = 0;
         c.gridy = 2;
         pane.add(p2, c);
         
         p3 = new JLabel("P3", SwingConstants.CENTER);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipadx = 100;
-        c.ipady = 20;
-        c.weightx = 0.5;
-        c.weighty = 0.5;
         c.gridx = 0;
         c.gridy = 3;
         pane.add(p3, c);
         
         p4 = new JLabel("P4", SwingConstants.CENTER);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipadx = 100;
-        c.ipady = 20;
-        c.weightx = 0.5;
-        c.weighty = 0.5;
         c.gridx = 0;
         c.gridy = 4;
         pane.add(p4, c);
        
+	c.fill = GridBagConstraints.NONE;
+	
         bt1 = new JTextField();
-        c.fill = GridBagConstraints.NONE;
-        c.ipadx = 100;
-        c.ipady = 20;
-        c.weightx = 0.5;
-        c.weighty = 0.5;
         c.gridx = 1;
         c.gridy = 1;
         pane.add(bt1, c);
         
         bt2 = new JTextField();
-        c.fill = GridBagConstraints.NONE;
-        c.ipadx = 100;
-        c.ipady = 20;
-        c.weightx = 0.5;
-        c.weighty = 0.5;
         c.gridx = 1;
         c.gridy = 2;
         pane.add(bt2, c);
         
         bt3 = new JTextField();
-        c.fill = GridBagConstraints.NONE;
-        c.ipadx = 100;
-        c.ipady = 20;
-        c.weightx = 0.5;
-        c.weighty = 0.5;
         c.gridx = 1;
         c.gridy = 3;
         pane.add(bt3, c);
         
         bt4 = new JTextField();
-        c.fill = GridBagConstraints.NONE;
-        c.ipadx = 100;
-        c.ipady = 20;
-        c.weightx = 0.5;
-        c.weighty = 0.5;
         c.gridx = 1;
         c.gridy = 4;
         pane.add(bt4, c);
         
-        
         sjfButton = new JButton("SJF");
-        c.fill = GridBagConstraints.NONE;
-        c.ipadx = 100;
-        c.ipady = 20;
-        c.weightx = 0.5;
-        c.weighty = 0.5;
         c.gridx = 0;
         c.gridy = 5;
         pane.add(sjfButton, c);
         
         fcfsButton = new JButton("FCFS");
-        c.fill = GridBagConstraints.NONE;
-        c.ipadx = 100;
-        c.ipady = 20;
-        c.weightx = 0.5;
-        c.weighty = 0.5;
         c.gridx = 1;
         c.gridy = 5;
         pane.add(fcfsButton, c);
@@ -155,11 +104,11 @@ public final class BurstTimeInputFrame extends JFrame implements ActionListener 
         sjfButton.addActionListener(this);
         fcfsButton.addActionListener(this);
         
-        getContentPane().add(pane);
-        setTitle("Scheduling Algorithm Simulator");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        pack();
+        frame.getContentPane().add(pane);
+        frame.setTitle("Scheduling Algorithm Simulator");
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.pack();
     }
 
     @Override
@@ -177,7 +126,7 @@ public final class BurstTimeInputFrame extends JFrame implements ActionListener 
                 } catch (NullPointerException e) { 
                     System.out.println(e.getMessage());
                 }
-                setVisible(false);
+                frame.setVisible(false);
                 SJF sjf = new SJF(bt1, bt2, bt3, bt4);
                 break;
                 
@@ -190,7 +139,7 @@ public final class BurstTimeInputFrame extends JFrame implements ActionListener 
                 } catch (NullPointerException e) { 
                     System.out.println(e.getMessage());
                 }
-                setVisible(false);
+                frame.setVisible(false);
                 FCFS fcfs = new FCFS(bt1, bt2, bt3, bt4);
                 break;
         }
