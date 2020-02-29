@@ -32,6 +32,7 @@ public final class BurstTimeInputFrame implements ActionListener {
 		frame = new JFrame();
         pane = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
+		
         c.insets = new Insets(5,5,5,5);
 		c.fill = GridBagConstraints.HORIZONTAL;
         c.ipadx = 100;
