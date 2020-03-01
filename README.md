@@ -1,3 +1,2 @@
-# scheduling-algorithm-simulator
-os finals project, a scheduling algorithm simulator that will simulate SJF and FCFS algorithm
-(not really)
+# Scheduling Algorithm Simulator
+Visual simulation of various burst times of different processes.
