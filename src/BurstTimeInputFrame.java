@@ -1,15 +1,8 @@
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 public final class BurstTimeInputFrame implements ActionListener {
     JFrame frame;
@@ -20,8 +13,7 @@ public final class BurstTimeInputFrame implements ActionListener {
     JButton sjfButton, fcfsButton;
     
     public static void main(String[] args)  {
-        BurstTimeInputFrame burstTimeInputFrame = new BurstTimeInputFrame();
-        burstTimeInputFrame.frame.setVisible(true);
+        new BurstTimeInputFrame();
     }
     
     public BurstTimeInputFrame() {
@@ -29,8 +21,15 @@ public final class BurstTimeInputFrame implements ActionListener {
     }
     
     public void initComponents() {
-		frame = new JFrame();
+		frame = new JFrame("Scheduling Algorithm Simulator");
+		frame.setVisible(true);
+		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
         pane = new JPanel(new GridBagLayout());
+		frame.add(pane);
+		
         GridBagConstraints c = new GridBagConstraints();
 		
         c.insets = new Insets(5,5,5,5);
@@ -104,12 +103,8 @@ public final class BurstTimeInputFrame implements ActionListener {
         
         sjfButton.addActionListener(this);
         fcfsButton.addActionListener(this);
-        
-        frame.getContentPane().add(pane);
-        frame.setTitle("Scheduling Algorithm Simulator");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.pack();
+		
+		frame.pack();
     }
 
     @Override
@@ -141,7 +136,7 @@ public final class BurstTimeInputFrame implements ActionListener {
                     System.out.println(e.getMessage());
                 }
                 frame.setVisible(false);
-                //FCFS fcfs = new FCFS(bt1, bt2, bt3, bt4);
+                FCFS fcfs = new FCFS(bt1, bt2, bt3, bt4);
                 break;
         }
     }
