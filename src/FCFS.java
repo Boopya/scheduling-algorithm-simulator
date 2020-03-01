@@ -1,11 +1,14 @@
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class FCFS {
 	JFrame frame;
     JPanel pane;
 	JLabel p1, p2, p3, p4, avg;
+	JButton back;
 	double bt1, bt2, bt3, bt4, total;
 	int x1, x2, x3, x4;
 	
@@ -38,6 +41,10 @@ public class FCFS {
 		pane.setLayout(null);
 		frame.add(pane);
 		
+		back = new JButton("Back");
+		back.setBounds(200, 350, 100, 50);
+		pane.add(back);
+		
 		p1 = new JLabel("P1", SwingConstants.CENTER);
 		p1.setBounds(0, 200, (int)bt1, 100);
 		p1.setBackground(Color.BLACK);
@@ -68,7 +75,16 @@ public class FCFS {
 				 2 * (bt3 * total / 500) + 
 				 1 * (bt4 * total / 500)) / 4,
 				SwingConstants.CENTER);
-		avg.setBounds(100, 300, 300, 150);
+		avg.setBounds(100, 100, 300, 100);
+		
 		pane.add(avg);
+		
+		back.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				new BurstTimeInputFrame();
+				frame.dispose();
+			}
+		} );
 	}
 }

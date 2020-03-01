@@ -122,7 +122,7 @@ public final class BurstTimeInputFrame implements ActionListener {
                 } catch (NullPointerException e) { 
                     System.out.println(e.getMessage());
                 }
-                frame.setVisible(false);
+                frame.dispose();
                 SJF sjf = new SJF(bt1, bt2, bt3, bt4);
                 break;
                 
@@ -135,7 +135,7 @@ public final class BurstTimeInputFrame implements ActionListener {
                 } catch (NullPointerException e) { 
                     System.out.println(e.getMessage());
                 }
-                frame.setVisible(false);
+                frame.dispose();
                 FCFS fcfs = new FCFS(bt1, bt2, bt3, bt4);
                 break;
         }
