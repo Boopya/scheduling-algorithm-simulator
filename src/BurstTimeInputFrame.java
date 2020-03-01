@@ -22,6 +22,7 @@ public final class BurstTimeInputFrame implements ActionListener {
     
     public void initComponents() {
 		frame = new JFrame("Scheduling Algorithm Simulator");
+		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
