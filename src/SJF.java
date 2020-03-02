@@ -6,54 +6,47 @@ import javax.swing.*;
 
 public class SJF {
     JFrame frame;
-    JLabel p1, p2, p3, p4, avg;
+    JLabel p1Label, p2Label, p3Label, p4Label, averageLabel;
 	JPanel pane;
 	JButton back;
-	double bt1, bt2, bt3, bt4, total;
-	int x1, x2, x3, x4;
-	SJFAttributes[] sjf;
-	SJFAttributes sjfTemp;
+	SJFAttributes[] sjfObjects, sortedSjfObjects;
+	double firstProcessBurstTime, secondProcessBurstTime, thirdProcessBurstTime, fourthProcessBurstTime, totalBurstTime, averageWaitingTime;
+	int firstProcessWidth, secondProcessWidth, thirdProcessWidth, fourthProcessWidth;
+	final int SJF_ARRAY_LENGTH = 4;
+	final int PROCESS_LABEL_Y_COORDINATE = 200;
+	final int PROCESS_LABEL_HEIGHT = 100;
     
-    public SJF(String p1, String p2, String p3, String p4) {
-		sjf = new SJFAttributes[4];
+    public SJF(double firstProcessBurstTime, double secondProcessBurstTime, double thirdProcessBurstTime, double fourthProcessBurstTime) {
+		sjfObjects = new SJFAttributes[SJF_ARRAY_LENGTH];
+		sortedSjfObjects = new SJFAttributes[SJF_ARRAY_LENGTH];
 		
-		for(int i = 0; i < sjf.length; i++) {
-			sjf[i] = new SJFAttributes();
+		for(int i = 0; i < SJF_ARRAY_LENGTH; i++) {
+			sjfObjects[i] = new SJFAttributes();
+			sortedSjfObjects[i] = new SJFAttributes();
 		}
 		
-		sjf[0].setProcess("P1");
-		sjf[0].setBurstTime(Integer.parseInt(p1));
-		sjf[1].setProcess("P2");
-		sjf[1].setBurstTime(Integer.parseInt(p2));
-		sjf[2].setProcess("P3");
-		sjf[2].setBurstTime(Integer.parseInt(p3));
-		sjf[3].setProcess("P4");
-		sjf[3].setBurstTime(Integer.parseInt(p4));
-		sjfTemp = new SJFAttributes();
+		sjfObjects[0].setProcessLabel("P1");
+		sjfObjects[0].setBurstTime(firstProcessBurstTime);
+		sjfObjects[1].setProcessLabel("P2");
+		sjfObjects[1].setBurstTime(secondProcessBurstTime);
+		sjfObjects[2].setProcessLabel("P3");
+		sjfObjects[2].setBurstTime(thirdProcessBurstTime);
+		sjfObjects[3].setProcessLabel("P4");
+		sjfObjects[3].setBurstTime(fourthProcessBurstTime);
 		
-		for(int i = 0; i < sjf.length; i++) {
-			for(int j = 0; j < sjf.length-i-1; j++) {
-				if(sjf[j].getBurstTime() > sjf[j+1].getBurstTime()) {
-					 sjfTemp = sjf[j];
-					 sjf[j] = sjf[j+1];
-					 sjf[j+1] = sjfTemp;
-				}
-			}
-		}
+		sortedSjfObjects = SJFAttributes.sortBurstTime(sjfObjects, SJF_ARRAY_LENGTH);
 		
-		bt1 = sjf[0].getBurstTime();
-		bt2 = sjf[1].getBurstTime();
-		bt3 = sjf[2].getBurstTime();
-		bt4 = sjf[3].getBurstTime();
-		total = bt1 + bt2 + bt3 + bt4;
-		bt1 = bt1 / total * 500;
-		bt2 = bt2 / total * 500;
-		bt3 = bt3 / total * 500;
-		bt4 = bt4 / total * 500;
-		x1 = (int) bt1;
-		x2 = (int) bt2;
-		x3 = (int) bt3;
-		x4 = (int) bt4;
+		firstProcessBurstTime = sortedSjfObjects[0].getBurstTime();
+		secondProcessBurstTime = sortedSjfObjects[1].getBurstTime();
+		thirdProcessBurstTime = sortedSjfObjects[2].getBurstTime();
+		fourthProcessBurstTime = sortedSjfObjects[3].getBurstTime();
+		totalBurstTime = firstProcessBurstTime + secondProcessBurstTime + thirdProcessBurstTime + fourthProcessBurstTime;
+		averageWaitingTime = ((4 * (firstProcessBurstTime) + 3 * (secondProcessBurstTime) + 2 * (thirdProcessBurstTime) + 1 * (fourthProcessBurstTime)) / 4);
+		
+		firstProcessWidth = (int) (firstProcessBurstTime / totalBurstTime * 500);
+		secondProcessWidth = (int) (secondProcessBurstTime / totalBurstTime * 500);
+		thirdProcessWidth = (int) (thirdProcessBurstTime / totalBurstTime * 500);
+		fourthProcessWidth = (int) (fourthProcessBurstTime / totalBurstTime * 500);
 		
 		initComponents();
     }
@@ -74,44 +67,41 @@ public class SJF {
 		back.setBounds(200, 350, 100, 50);
 		pane.add(back);
 		
-		p1 = new JLabel(sjf[0].getProcess(), SwingConstants.CENTER);
-		p1.setBounds(0, 200, (int)bt1, 100);
-		p1.setBackground(Color.BLACK);
-		p1.setOpaque(true);
-		pane.add(p1);
+		p1Label = new JLabel(sortedSjfObjects[0].getProcessLabel(), SwingConstants.CENTER);
+		p1Label.setBounds(0, PROCESS_LABEL_Y_COORDINATE, firstProcessWidth, PROCESS_LABEL_HEIGHT);
+		p1Label.setBackground(Color.BLACK);
+		p1Label.setOpaque(true);
+		pane.add(p1Label);
 		
-		p2 = new JLabel(sjf[1].getProcess(), SwingConstants.CENTER);
-		p2.setBounds(x1, 200, x2, 100);
-		p2.setBackground(Color.BLUE);
-		p2.setOpaque(true);
-		pane.add(p2);
+		p2Label = new JLabel(sortedSjfObjects[1].getProcessLabel(), SwingConstants.CENTER);
+		p2Label.setBounds(firstProcessWidth, PROCESS_LABEL_Y_COORDINATE, secondProcessWidth, PROCESS_LABEL_HEIGHT);
+		p2Label.setBackground(Color.BLUE);
+		p2Label.setOpaque(true);
+		pane.add(p2Label);
 		
-		p3 = new JLabel(sjf[2].getProcess(), SwingConstants.CENTER);
-		p3.setBounds(x1+x2, 200, x3, 100);
-		p3.setBackground(Color.CYAN);
-		p3.setOpaque(true);
-		pane.add(p3);
+		p3Label = new JLabel(sortedSjfObjects[2].getProcessLabel(), SwingConstants.CENTER);
+		p3Label.setBounds(firstProcessWidth+secondProcessWidth, PROCESS_LABEL_Y_COORDINATE, thirdProcessWidth, PROCESS_LABEL_HEIGHT);
+		p3Label.setBackground(Color.CYAN);
+		p3Label.setOpaque(true);
+		pane.add(p3Label);
 		
-		p4 = new JLabel(sjf[3].getProcess(), SwingConstants.CENTER);
-		p4.setBounds(x1+x2+x3, 200, x4, 100);
-		p4.setBackground(Color.DARK_GRAY);
-		p4.setOpaque(true);
-		pane.add(p4);
+		p4Label = new JLabel(sortedSjfObjects[3].getProcessLabel(), SwingConstants.CENTER);
+		p4Label.setBounds(firstProcessWidth+secondProcessWidth+thirdProcessWidth, PROCESS_LABEL_Y_COORDINATE, fourthProcessWidth, PROCESS_LABEL_HEIGHT);
+		p4Label.setBackground(Color.DARK_GRAY);
+		p4Label.setOpaque(true);
+		pane.add(p4Label);
 		
-		avg = new JLabel("Average Waiting Time: " +
-				(4 * (bt1 * total / 500) + 
-				 3 * (bt2 * total / 500) + 
-				 2 * (bt3 * total / 500) + 
-				 1 * (bt4 * total / 500)) / 4,
-				SwingConstants.CENTER);
-		avg.setBounds(100, 100, 300, 100);
 		
-		pane.add(avg);
+		
+		averageLabel = new JLabel("Average Waiting Time: " + averageWaitingTime, SwingConstants.CENTER);
+		averageLabel.setBounds(100, 100, 300, 100);
+		
+		pane.add(averageLabel);
 		
 		back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				new BurstTimeInputFrame();
+				new BurstTime();
 				frame.dispose();
 			}
 		} );
